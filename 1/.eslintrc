@@ -1,6 +1,15 @@
 {
-    "parser": "babel-eslint",
-    "rules": {
-        "strict": 0
-    }
+  "parser": "babel-eslint",
+  "quotes": [2, "single", "avoid-escape"],
+  "rules": {
+    "strict": 0,
+    "prettier/prettier": "error",
+    "comma-dangle": ["error", "always"]
+  },
+  "extends": "prettier",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": ["prettier"]
 }
