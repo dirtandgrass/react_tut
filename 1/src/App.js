@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
     persons: [
       { id: 1, name: 'Joe', age: 31 },
       { id: 2, name: 'Beth', age: 36 },
-      { id: 3, name: 'Fred', age: 27 }
+      { id: 3, name: 'Fred', age: 27 },
     ],
     users: [{ username: 'user1' }, { username: 'user2' }],
-    showPersons: false
+    showPersons: false,
   };
 
   togglePersonsHandler = () => {
@@ -39,53 +40,47 @@ class App extends Component {
   };
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '2px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      color: 'white'
-    };
-
     let persons = null;
+    let btnClass = '';
+
     if (this.state.showPersons) {
       persons = (
         <div>
           {this.state.persons.map((person, i) => {
             return (
-              <Person
-                key={person.id}
-                click={() => {
-                  this.deletePersonHandler(i);
-                }}
-                name={person.name}
-                age={person.age}
-                changed={e => {
-                  this.nameChangedHandler(e, person.id);
-                }}
-              />
+              <ErrorBoundary key={person.id}>
+                <Person
+                  click={() => {
+                    this.deletePersonHandler(i);
+                  }}
+                  name={person.name}
+                  age={person.age}
+                  changed={e => {
+                    this.nameChangedHandler(e, person.id);
+                  }}
+                />
+              </ErrorBoundary>
             );
           })}
         </div>
       );
-
-      style.backgroundColor = 'red';
+      btnClass = styles.red;
     }
+
     const classes = [];
 
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      classes.push(styles.red);
       if (this.state.persons.length <= 1) {
-        classes.push('bold');
+        classes.push(styles.bold);
       }
     }
 
     return (
-      <div className="App">
+      <div className={styles.App}>
         <h1>Hello!</h1>
         <p className={classes.join(' ')}>React!</p>
-        <button style={style} onClick={this.togglePersonsHandler}>
+        <button className={btnClass} onClick={this.togglePersonsHandler}>
           Toggle Persons
         </button>
         {persons}
