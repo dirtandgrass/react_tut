@@ -1,0 +1,10 @@
+---
+applications:
+- name: ibm-studios-ottawa
+  memory: 256M
+  disk_quota: 256M
+  instances: 2
+  command: npm start
+routes:
+  - route: ibm-studios-ottawa.w3ibm.mybluemix.net
+  buildpack: "https://github.com/cloudfoundry/nodejs-buildpack.git"
