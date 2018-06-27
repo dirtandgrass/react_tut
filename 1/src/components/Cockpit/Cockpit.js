@@ -3,9 +3,10 @@ import styles from './Cockpit.css';
 
 const Cockpit = props => {
   const classes = [];
-  let btnClass = '';
+  let btnClass = styles.Button;
+
   if (props.showPersons) {
-    btnClass = styles.red;
+    btnClass = [styles.Button, styles.red].join(' ');
   }
 
   if (props.persons.length <= 2) {
@@ -17,7 +18,7 @@ const Cockpit = props => {
 
   return (
     <div className={styles.Cockpit}>
-      <h1>Hello!</h1>
+      <h1>{props.appTitle}</h1>
       <p className={classes.join(' ')}>React!</p>
       <button className={btnClass} onClick={props.clicked}>
         Toggle Persons
